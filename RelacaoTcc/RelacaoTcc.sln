@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RelacaoTcc", "RelacaoTcc\RelacaoTcc.csproj", "{76E6FE66-20D9-4281-B787-C8506B409C0A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{76E6FE66-20D9-4281-B787-C8506B409C0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76E6FE66-20D9-4281-B787-C8506B409C0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76E6FE66-20D9-4281-B787-C8506B409C0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76E6FE66-20D9-4281-B787-C8506B409C0A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EE3EE6AA-D1D9-42DD-8124-C22CB76C601B}
+	EndGlobalSection
+EndGlobal
