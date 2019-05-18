@@ -7,27 +7,58 @@ using System.Linq;
 
 namespace RelacaoTcc.Infrastructure.Repositorio
 {
-    public class ComumRepository<T> : IComumRepository<T> where T : Elemento
+    public abstract class ComumRepository<T> : IComumRepository<T> where T : Elemento, INomeaveis
     {
-        private readonly AppContexto contexto;
-        private readonly DbSet<T> dbSet;
+        #region Campos
+        protected readonly AppContexto contexto;
+        protected readonly DbSet<T> dbSet;
+        #endregion
 
+        #region Construtores
         public ComumRepository(AppContexto contexto)
         {
             this.contexto = contexto;
             this.dbSet = contexto.Set<T>();
         }
+        #endregion
 
+        #region Metodos
         public T BuscarPor(int id)
         {
-            var resultado = dbSet.Where(q => q.Id == id);
+            var resultado = dbSet.Where(q => (q.Id == id) && (q.IsAtivo));
             return resultado.Count() > 0 ? resultado.FirstOrDefault() : (T)Activator.CreateInstance(typeof(T));            
         }
 
         public List<T> Listar()
         {
-            var resultado = dbSet.ToList();
+            var resultado = dbSet.Where(q => q.IsAtivo).ToList();
             return resultado.Count > 0 ? resultado : new List<T>();
         }
+
+        public void Excluir(int id)
+        {
+            var obj = dbSet.Find(id);
+            obj.IsAtivo = false;
+            dbSet.Update(obj);
+            contexto.SaveChanges();
+        }
+
+        public T BuscarPor(string nome)
+        {
+            var resultado = dbSet.Where(q => (q.Nome.Equals(nome.ToLower())) && q.IsAtivo);
+            return resultado.Count() > 0 ? resultado.FirstOrDefault() : Activator.CreateInstance<T>();
+        }
+
+        public List<T> Filtrar(string filtro)
+        {
+            return dbSet.Where(q => (q.Nome.ToLower().Contains(filtro)) && (q.IsAtivo)).ToList();
+        }
+
+        public T BuscarPorRegistro(string registro)
+        {
+            var resultado = dbSet.Where(q => q.Registro.Equals(registro.ToLower()));
+            return resultado.Count() > 0 ? resultado.FirstOrDefault() : Activator.CreateInstance<T>();
+        }
+        #endregion
     }
 }

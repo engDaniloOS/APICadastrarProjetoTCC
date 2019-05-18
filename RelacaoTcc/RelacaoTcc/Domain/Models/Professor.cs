@@ -1,8 +1,9 @@
-﻿namespace RelacaoTcc.Dominio.Models
+﻿using RelacaoTcc.Domain.Models.Interfaces;
+
+namespace RelacaoTcc.Dominio.Models
 {
-    public class Professor : Elemento, IProfessor
+    public class Professor : Elemento, INomeaveis, IProfessor
     {
         public string Nome { get; set; }
-        public string Registro { get; set; }
     }
 }

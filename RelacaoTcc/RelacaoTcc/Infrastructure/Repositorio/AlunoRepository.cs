@@ -1,18 +1,14 @@
 ﻿using RelacaoTcc.Dominio.Models;
 using RelacaoTcc.Dominio.Models.DTO;
 using RelacaoTcc.Infrastructure.Repositorio.Interface;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace RelacaoTcc.Infrastructure.Repositorio
 {
-    public class AlunoRepository : IAlunoRepository
+    public class AlunoRepository : ComumRepository<Aluno>, IRepository<Aluno, AlunoModel>
     {
-        public readonly AppContexto contexto;
-
-        public AlunoRepository(AppContexto contexto)
+        public AlunoRepository(AppContexto contexto) : base(contexto)
         {
-            this.contexto = contexto;
         }
 
         public Aluno Criar(AlunoModel model)
@@ -21,7 +17,7 @@ namespace RelacaoTcc.Infrastructure.Repositorio
             {
                 IsAtivo = true,
                 Nome = model.Nome,
-                RA = model.RA,
+                Registro = model.RA,
                 Profissao = model.Profissao,
                 Celular = model.Celular
             };
@@ -32,21 +28,16 @@ namespace RelacaoTcc.Infrastructure.Repositorio
             return aluno;
         }
 
-        public Aluno BuscarPor(string nome)
+        public Aluno Atualizar(AlunoModel aluno)
         {
-            var aluno = contexto.Alunos.Where(q => q.Nome.Equals(nome.ToLower()));
-            return aluno.Count() > 0 ? aluno.FirstOrDefault() : new Aluno();
-        }
+            var resultado = contexto.Alunos.Where(q => (q.Id == aluno.Id) && q.IsAtivo ).FirstOrDefault();
 
-        public Aluno BuscarPorRA(string ra)
-        {
-            var aluno = contexto.Alunos.Where(q => q.RA.Equals(ra.ToLower()));
-            return aluno.Count() > 0 ? aluno.FirstOrDefault() : new Aluno();
-        }
+            resultado.Profissao = string.IsNullOrWhiteSpace(aluno.Profissao) ? resultado.Profissao : aluno.Profissao;
+            resultado.Celular = string.IsNullOrWhiteSpace(aluno.Celular) ? resultado.Celular : aluno.Celular;
+            contexto.Update(resultado);
+            contexto.SaveChanges();
 
-        public List<Aluno> Filtrar(string filtro)
-        {
-            return contexto.Alunos.Where(q => q.Nome.ToLower().Contains(filtro)).ToList();
+            return resultado;
         }
     }
 }

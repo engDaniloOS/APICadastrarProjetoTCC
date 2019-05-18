@@ -1,9 +1,10 @@
-﻿namespace RelacaoTcc.Dominio.Models
+﻿using RelacaoTcc.Domain.Models.Interfaces;
+
+namespace RelacaoTcc.Dominio.Models
 {
-    public class Aluno : Elemento, IAluno
+    public class Aluno : Elemento, INomeaveis, IAluno
     {
         public string Nome { get; set; }
-        public string RA { get; set; }
         public string Profissao { get; set; }
         public string Celular { get; set; }
     }

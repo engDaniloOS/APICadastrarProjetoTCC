@@ -1,8 +1,9 @@
-﻿using System;
+﻿using RelacaoTcc.Domain.Models.Interfaces;
+using System;
 
 namespace RelacaoTcc.Dominio.Models
 {
-    public class Projeto : Elemento, IProjeto
+    public class Projeto : Elemento, INomeaveis, IProjeto
     {
         public string Nome { get; set; }
         public string Descricao { get; set; }

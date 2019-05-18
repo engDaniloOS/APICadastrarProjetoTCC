@@ -4,7 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RelacaoTcc.Domain.Models.DTO;
+using RelacaoTcc.Domain.Services;
 using RelacaoTcc.Dominio.Models;
+using RelacaoTcc.Dominio.Models.DTO;
 using RelacaoTcc.Dominio.Services;
 using RelacaoTcc.Infrastructure;
 using RelacaoTcc.Infrastructure.Repositorio;
@@ -27,14 +30,15 @@ namespace RelacaoTcc
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<AppContexto>(option => option.UseSqlServer(Configuration.GetConnectionString("Default")));
 
-            services.AddTransient<IAlunoService, AlunoService>();
-            services.AddTransient<IAlunoRepository, AlunoRepository>();
-            services.AddTransient<IComumRepository<Aluno>, ComumRepository<Aluno>>();
-            services.AddTransient<IComumRepository<Professor>, ComumRepository<Professor>>();
-            services.AddTransient<IComumRepository<Projeto>, ComumRepository<Projeto>>();
+            services.AddTransient<IService<Aluno, AlunoModel>, AlunoService>();
+            services.AddTransient<IService<Professor, ProfessorModel>, ProfessorService>();
 
+            services.AddTransient<IRepository<Aluno, AlunoModel>, AlunoRepository>();
+            services.AddTransient<IRepository<Professor, ProfessorModel>, ProfessorRepository>();
 
-
+            services.AddTransient<IComumRepository<Aluno>, AlunoRepository>();
+            services.AddTransient<IComumRepository<Professor>, ProfessorRepository>();
+            //services.AddTransient<IComumRepository<Projeto>, ComumRepository<Projeto>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
