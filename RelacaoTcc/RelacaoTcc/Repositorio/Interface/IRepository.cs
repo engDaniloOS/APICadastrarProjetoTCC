@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace RelacaoTcc.Infrastructure.Repositorio.Interface
+﻿namespace RelacaoTcc.Infrastructure.Repositorio.Interface
 {
     public interface IRepository<T, D>
     {

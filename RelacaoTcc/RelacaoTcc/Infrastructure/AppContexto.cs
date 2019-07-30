@@ -9,16 +9,19 @@ namespace RelacaoTcc.Infrastructure
         {
         }
 
+        #region DbSet
         public DbSet<Aluno> Alunos { get; set; }
         public DbSet<Professor> Professores { get; set; }
         public DbSet<Projeto> Projetos { get; set; }
         public DbSet<ProjetoProfessor> ProjetosProfessores { get; set; }
         public DbSet<ProjetoAluno> ProjetosAlunos { get; set; }
+        #endregion DbSet
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
+            #region ajustar
             //builder.Entity<Aluno>().HasKey(q => q.Id);
             //builder.Entity<Aluno>().Property(q => q.Id).HasColumnName("ID");
             //builder.Entity<Aluno>().Property(q => q.IsAtivo).HasColumnName("ATIVO");
@@ -52,6 +55,7 @@ namespace RelacaoTcc.Infrastructure
             //builder.Entity<ProjetoProfessor>().Property(q => q.IsAtivo).HasColumnName("ATIVO");
             //builder.Entity<ProjetoProfessor>().Property(q => q.ProfessorId).HasColumnName("PROFESSOR_ID");
             //builder.Entity<ProjetoProfessor>().Property(q => q.ProjetoId).HasColumnName("PROJETO_ID");
+            #endregion ajustar
         }
     }
 }

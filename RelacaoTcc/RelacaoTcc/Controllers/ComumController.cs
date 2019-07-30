@@ -29,11 +29,13 @@ namespace RelacaoTcc.Controllers
             if (elemento == null)
                 return BadRequest(acaoImpossivel);
 
+            else if (elemento.Id == 0)
+                return NotFound(naoEncontrado);
+
             else if (elemento.Id > 0)
                 return Ok(elemento);
 
-            else
-                return BadRequest(mensagem);
+            return BadRequest(mensagem);
         }
 
         private IActionResult GerarLista(List<T> lista, string mensagem = "")
@@ -42,38 +44,37 @@ namespace RelacaoTcc.Controllers
                 return BadRequest(acaoImpossivel);
 
             else if (lista.Count == 0)
-                return BadRequest(naoEncontrado);
+                return NotFound(naoEncontrado);
 
-            else
-                return Ok(lista);
+            return Ok(lista);
         }
 
         [HttpPost]
-        public virtual IActionResult Criar([FromBody]D model) 
+        public virtual IActionResult Criar([FromBody]D model)
             => GerarResultado(service.Criar(model), jaCadastrado);
 
         [HttpGet]
         [Route("id/{id}")]
-        public IActionResult BuscarPor(int id) 
+        public IActionResult BuscarPor(int id)
             => GerarResultado(service.BuscarPor(id), naoEncontrado);
 
         [HttpGet]
         [Route("buscar/{filtro}")]
-        public IActionResult BuscarPor(string filtro) 
+        public IActionResult BuscarPor(string filtro)
             => GerarResultado(service.BuscarPor(filtro), naoEncontrado);
 
         [HttpGet]
         [Route("filtrar/{filtro}")]
-        public IActionResult Filtrar(string filtro) 
+        public IActionResult Filtrar(string filtro)
             => GerarLista(service.Filtrar(filtro), naoEncontrado);
 
         [HttpGet]
-        public IActionResult Listar(string filtro) 
+        public IActionResult Listar(string filtro)
             => GerarLista(service.Listar(), naoEncontrado);
 
         [HttpPut]
         [Route("atualizar")]
-        public IActionResult Atualizar([FromBody]D aluno) 
+        public IActionResult Atualizar([FromBody]D aluno)
             => GerarResultado(service.Atualizar(aluno), "Não foi possível atualizar os dados.");
 
         [HttpDelete]
@@ -82,8 +83,8 @@ namespace RelacaoTcc.Controllers
         {
             if (service.Excluir(id))
                 return Ok("Item excluído com sucesso!");
-            else
-                return BadRequest("O ítem não pode ser excluído!");
+
+            return BadRequest("O ítem não pode ser excluído!");
         }
 
         #endregion

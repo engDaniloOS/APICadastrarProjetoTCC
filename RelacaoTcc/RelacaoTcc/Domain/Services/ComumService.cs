@@ -50,7 +50,7 @@ namespace RelacaoTcc.Domain.Services
         {
             try
             {
-                return id > 0 ? comum.BuscarPor(id) : (T)Activator.CreateInstance(typeof(T));
+                return comum.BuscarPor(id);
             }
             catch (Exception)
             {
@@ -62,8 +62,7 @@ namespace RelacaoTcc.Domain.Services
         {
             try
             {
-                List<T> alunos = comum.Listar();
-                return alunos.Count > 0 ? alunos : new List<T>();
+                return comum.Listar();
             }
             catch (Exception)
             {
