@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RelacaoTcc.Domain.Models.DTO;
 using RelacaoTcc.Dominio.Models;
 using RelacaoTcc.Dominio.Services;
 using System.Collections.Generic;
 
 namespace RelacaoTcc.Controllers
 {
-    public abstract class ComumController<T, D> : Controller where T : Elemento
+    public abstract class ComumController<T, D> : Controller where T : Elemento where D : IModel
     {
         #region Campos
         protected readonly string acaoImpossivel = "Não foi possível executar a ação";
@@ -48,52 +49,38 @@ namespace RelacaoTcc.Controllers
         }
 
         [HttpPost]
-        public virtual IActionResult Criar([FromBody]D model)
-        {
-            return GerarResultado(service.Criar(model), jaCadastrado);
-        }
+        public virtual IActionResult Criar([FromBody]D model) 
+            => GerarResultado(service.Criar(model), jaCadastrado);
 
         [HttpGet]
         [Route("id/{id}")]
-        public IActionResult BuscarPor(int id)
-        {
-            return GerarResultado(service.BuscarPor(id), naoEncontrado);
-        }
+        public IActionResult BuscarPor(int id) 
+            => GerarResultado(service.BuscarPor(id), naoEncontrado);
 
         [HttpGet]
         [Route("buscar/{filtro}")]
-        public IActionResult BuscarPor(string filtro)
-        {
-            return GerarResultado(service.BuscarPor(filtro), naoEncontrado);
-        }
+        public IActionResult BuscarPor(string filtro) 
+            => GerarResultado(service.BuscarPor(filtro), naoEncontrado);
 
         [HttpGet]
         [Route("filtrar/{filtro}")]
-        public IActionResult Filtrar(string filtro)
-        {
-            return GerarLista(service.Filtrar(filtro), naoEncontrado);
-        }
+        public IActionResult Filtrar(string filtro) 
+            => GerarLista(service.Filtrar(filtro), naoEncontrado);
 
         [HttpGet]
-        public IActionResult Listar(string filtro)
-        {
-            return GerarLista(service.Listar(), naoEncontrado);
-        }
+        public IActionResult Listar(string filtro) 
+            => GerarLista(service.Listar(), naoEncontrado);
 
         [HttpPut]
         [Route("atualizar")]
-        public IActionResult Atualizar([FromBody]D aluno)
-        {
-            return GerarResultado(service.Atualizar(aluno), "Não foi possível atualizar os dados.");
-        }
+        public IActionResult Atualizar([FromBody]D aluno) 
+            => GerarResultado(service.Atualizar(aluno), "Não foi possível atualizar os dados.");
 
         [HttpDelete]
         [Route("excluir")]
         public IActionResult Excluir([FromBody]int id)
         {
-            var resultado = service.Excluir(id);
-
-            if (resultado)
+            if (service.Excluir(id))
                 return Ok("Item excluído com sucesso!");
             else
                 return BadRequest("O ítem não pode ser excluído!");

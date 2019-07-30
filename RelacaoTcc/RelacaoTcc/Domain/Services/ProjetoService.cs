@@ -6,8 +6,8 @@ using RelacaoTcc.Infrastructure.Repositorio.Interface;
 
 namespace RelacaoTcc.Domain.Services
 {
-    public class ProfessorService : ComumService<Professor, ProfessorModel>, IService<Professor, ProfessorModel>
+    public class ProjetoService : ComumService<Projeto, ProjetoModel>, IService<Projeto, ProjetoModel>
     {
-        public ProfessorService(IRepository<Professor, ProfessorModel> repository, IComumRepository<Professor> comum) : base(repository, comum) { }
+        public ProjetoService(IRepository<Projeto, ProjetoModel> repository, IComumRepository<Projeto> comum) : base(repository, comum) { }
     }
 }

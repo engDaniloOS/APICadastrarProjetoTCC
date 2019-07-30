@@ -29,8 +29,8 @@ namespace RelacaoTcc.Infrastructure.Repositorio
         public Professor Atualizar(ProfessorModel professor)
         {
             var resultado = contexto.Professores.Where(q => (q.Id == professor.Id) && q.IsAtivo).FirstOrDefault();
-            //contexto.Update(resultado);
-            //contexto.SaveChanges();
+            contexto.Update(resultado);
+            contexto.SaveChanges();
             return resultado;
         }
     }

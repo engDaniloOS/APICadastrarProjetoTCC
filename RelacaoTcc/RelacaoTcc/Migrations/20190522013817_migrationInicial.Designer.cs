@@ -10,8 +10,8 @@ using RelacaoTcc.Infrastructure;
 namespace RelacaoTcc.Migrations
 {
     [DbContext(typeof(AppContexto))]
-    [Migration("20190512173622_MigrationInicial")]
-    partial class MigrationInicial
+    [Migration("20190522013817_migrationInicial")]
+    partial class migrationInicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,7 +35,7 @@ namespace RelacaoTcc.Migrations
 
                     b.Property<string>("Profissao");
 
-                    b.Property<string>("RA");
+                    b.Property<string>("Registro");
 
                     b.HasKey("Id");
 
@@ -74,6 +74,8 @@ namespace RelacaoTcc.Migrations
                     b.Property<bool>("IsAtivo");
 
                     b.Property<string>("Nome");
+
+                    b.Property<string>("Registro");
 
                     b.HasKey("Id");
 

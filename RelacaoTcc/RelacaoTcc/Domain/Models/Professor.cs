@@ -4,6 +4,5 @@ namespace RelacaoTcc.Dominio.Models
 {
     public class Professor : Elemento, INomeaveis, IProfessor
     {
-        public string Nome { get; set; }
     }
 }

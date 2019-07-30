@@ -50,9 +50,7 @@ namespace RelacaoTcc.Infrastructure.Repositorio
         }
 
         public List<T> Filtrar(string filtro)
-        {
-            return dbSet.Where(q => (q.Nome.ToLower().Contains(filtro)) && (q.IsAtivo)).ToList();
-        }
+            => dbSet.Where(q => (q.Nome.ToLower().Contains(filtro)) && (q.IsAtivo)).ToList();
 
         public T BuscarPorRegistro(string registro)
         {

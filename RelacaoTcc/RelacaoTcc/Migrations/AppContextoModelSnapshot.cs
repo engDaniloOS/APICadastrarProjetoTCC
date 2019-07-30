@@ -92,8 +92,6 @@ namespace RelacaoTcc.Migrations
 
                     b.Property<int>("ProjetoId");
 
-                    b.Property<string>("Registro");
-
                     b.HasKey("Id");
 
                     b.ToTable("ProjetosAlunos");
@@ -110,8 +108,6 @@ namespace RelacaoTcc.Migrations
                     b.Property<int>("ProfessorId");
 
                     b.Property<int>("ProjetoId");
-
-                    b.Property<string>("Registro");
 
                     b.HasKey("Id");
 

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RelacaoTcc.Migrations
 {
-    public partial class MigrationInicial : Migration
+    public partial class migrationInicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,8 +15,8 @@ namespace RelacaoTcc.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     IsAtivo = table.Column<bool>(nullable: false),
+                    Registro = table.Column<string>(nullable: true),
                     Nome = table.Column<string>(nullable: true),
-                    RA = table.Column<string>(nullable: true),
                     Profissao = table.Column<string>(nullable: true),
                     Celular = table.Column<string>(nullable: true)
                 },
@@ -32,8 +32,8 @@ namespace RelacaoTcc.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     IsAtivo = table.Column<bool>(nullable: false),
-                    Nome = table.Column<string>(nullable: true),
-                    Registro = table.Column<string>(nullable: true)
+                    Registro = table.Column<string>(nullable: true),
+                    Nome = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -47,6 +47,7 @@ namespace RelacaoTcc.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     IsAtivo = table.Column<bool>(nullable: false),
+                    Registro = table.Column<string>(nullable: true),
                     Nome = table.Column<string>(nullable: true),
                     Descricao = table.Column<string>(nullable: true),
                     DataIni = table.Column<DateTime>(nullable: false),

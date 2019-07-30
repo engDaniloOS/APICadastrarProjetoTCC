@@ -1,4 +1,5 @@
-﻿using RelacaoTcc.Dominio.Models;
+﻿using RelacaoTcc.Domain.Models.DTO;
+using RelacaoTcc.Dominio.Models;
 using RelacaoTcc.Infrastructure.Repositorio;
 using RelacaoTcc.Infrastructure.Repositorio.Interface;
 using System;
@@ -7,7 +8,7 @@ using System.Text.RegularExpressions;
 
 namespace RelacaoTcc.Domain.Services
 {
-    public abstract class ComumService<T, D> where T : Elemento 
+    public abstract class ComumService<T, D> where T : Elemento where D : IModel
     {
         #region Campos
         protected readonly IComumRepository<T> comum;
@@ -23,6 +24,28 @@ namespace RelacaoTcc.Domain.Services
         #endregion
 
         #region Metodos
+        public T Criar(D model)
+        {
+            try
+            {
+                var elemento = Activator.CreateInstance<T>();
+
+                if (!string.IsNullOrEmpty(model.Nome.Trim()) && !string.IsNullOrEmpty(model.Registro.Trim()))
+                {
+                    if (repository.BuscarPorRegistro(model.Registro).Id == 0 && comum.BuscarPor(model.Nome).Id == 0)
+                        elemento = repository.Criar(model);
+
+                    return elemento;
+                }
+
+                return null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         public T BuscarPor(int id)
         {
             try

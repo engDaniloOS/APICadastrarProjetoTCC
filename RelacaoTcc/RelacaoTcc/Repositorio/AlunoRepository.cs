@@ -17,7 +17,7 @@ namespace RelacaoTcc.Infrastructure.Repositorio
             {
                 IsAtivo = true,
                 Nome = model.Nome,
-                Registro = model.RA,
+                Registro = model.Registro,
                 Profissao = model.Profissao,
                 Celular = model.Celular
             };
