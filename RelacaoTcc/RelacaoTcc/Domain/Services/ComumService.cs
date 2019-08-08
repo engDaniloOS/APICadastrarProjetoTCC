@@ -30,7 +30,7 @@ namespace RelacaoTcc.Domain.Services
             {
                 var elemento = Activator.CreateInstance<T>();
 
-                if (!string.IsNullOrEmpty(model.Nome.Trim()) && !string.IsNullOrEmpty(model.Registro.Trim()))
+                if (!string.IsNullOrWhiteSpace(model.Nome) && !string.IsNullOrWhiteSpace(model.Registro))
                 {
                     if (repository.BuscarPorRegistro(model.Registro).Id == 0 && comum.BuscarPor(model.Nome).Id == 0)
                         elemento = repository.Criar(model);

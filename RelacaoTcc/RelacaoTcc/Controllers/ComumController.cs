@@ -74,15 +74,15 @@ namespace RelacaoTcc.Controllers
 
         [HttpPut]
         [Route("atualizar")]
-        public IActionResult Atualizar([FromBody]D aluno)
-            => GerarResultado(service.Atualizar(aluno), "Não foi possível atualizar os dados.");
+        public IActionResult Atualizar([FromBody]D objeto)
+            => GerarResultado(service.Atualizar(objeto), "Não foi possível atualizar os dados.");
 
         [HttpDelete]
         [Route("excluir")]
         public IActionResult Excluir([FromBody]int id)
         {
             if (service.Excluir(id))
-                return Ok("Item excluído com sucesso!");
+                return NoContent();
 
             return BadRequest("O ítem não pode ser excluído!");
         }
