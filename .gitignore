@@ -244,8 +244,8 @@ ServiceFabricBackup/
 *.rptproj.bak
 
 # SQL Server files
-#*.mdf
-#*.ldf
+*.mdf
+*.ldf
 *.ndf
 
 # Business Intelligence projects
@@ -332,3 +332,5 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
+RelacaoTcc/RelacaoTcc/Infrastructure/RELACAO_TCC.mdf
+RelacaoTcc/RelacaoTcc/Infrastructure/RELACAO_TCC_log.ldf
