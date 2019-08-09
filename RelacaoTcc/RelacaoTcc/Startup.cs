@@ -12,6 +12,7 @@ using RelacaoTcc.Dominio.Services;
 using RelacaoTcc.Infrastructure;
 using RelacaoTcc.Infrastructure.Repositorio;
 using RelacaoTcc.Infrastructure.Repositorio.Interface;
+using System;
 
 namespace RelacaoTcc
 {
@@ -28,7 +29,7 @@ namespace RelacaoTcc
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddDbContext<AppContexto>(option => option.UseSqlServer(Configuration.GetConnectionString("Default")));
+            services.AddDbContext<AppContexto>(option => option.UseSqlServer(ConfigureConnectionString()));
 
             #region Dependency Injection
             services.AddTransient<IService<Aluno, AlunoModel>, AlunoService>();
@@ -60,5 +61,8 @@ namespace RelacaoTcc
             app.UseHttpsRedirection();
             app.UseMvc();
         }
+
+        private string ConfigureConnectionString()
+            => Configuration.GetConnectionString("Default").Replace("?path?", Environment.CurrentDirectory);
     }
 }
