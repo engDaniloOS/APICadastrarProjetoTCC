@@ -12,6 +12,8 @@ using RelacaoTcc.Dominio.Services;
 using RelacaoTcc.Infrastructure;
 using RelacaoTcc.Infrastructure.Repositorio;
 using RelacaoTcc.Infrastructure.Repositorio.Interface;
+using RelacaoTcc.Repositorio;
+using RelacaoTcc.Repositorio.Interface;
 using System;
 
 namespace RelacaoTcc
@@ -35,6 +37,7 @@ namespace RelacaoTcc
             services.AddTransient<IService<Aluno, AlunoModel>, AlunoService>();
             services.AddTransient<IService<Professor, ProfessorModel>, ProfessorService>();
             services.AddTransient<IService<Projeto, ProjetoModel>, ProjetoService>();
+            services.AddTransient<IRelacaoService, RelacaoService>();
 
             services.AddTransient<IRepository<Aluno, AlunoModel>, AlunoRepository>();
             services.AddTransient<IRepository<Professor, ProfessorModel>, ProfessorRepository>();
@@ -43,6 +46,7 @@ namespace RelacaoTcc
             services.AddTransient<IComumRepository<Aluno>, AlunoRepository>();
             services.AddTransient<IComumRepository<Professor>, ProfessorRepository>();
             services.AddTransient<IComumRepository<Projeto>, ProjetoRepository>();
+            services.AddTransient<IRelacaoRepository, RelacaoRepository>();
             #endregion Dependency Injection
         }
 

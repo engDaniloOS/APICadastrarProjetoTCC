@@ -33,9 +33,13 @@ namespace RelacaoTcc.Migrations
 
                     b.Property<string>("Profissao");
 
+                    b.Property<int?>("ProjetoAlunoId");
+
                     b.Property<string>("Registro");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProjetoAlunoId");
 
                     b.ToTable("Alunos");
                 });
@@ -88,11 +92,11 @@ namespace RelacaoTcc.Migrations
 
                     b.Property<int>("AlunoId");
 
-                    b.Property<bool>("IsAtivo");
-
                     b.Property<int>("ProjetoId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProjetoId");
 
                     b.ToTable("ProjetosAlunos");
                 });
@@ -103,15 +107,45 @@ namespace RelacaoTcc.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("IsAtivo");
-
                     b.Property<int>("ProfessorId");
 
                     b.Property<int>("ProjetoId");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ProfessorId");
+
+                    b.HasIndex("ProjetoId");
+
                     b.ToTable("ProjetosProfessores");
+                });
+
+            modelBuilder.Entity("RelacaoTcc.Dominio.Models.Aluno", b =>
+                {
+                    b.HasOne("RelacaoTcc.Dominio.Models.ProjetoAluno")
+                        .WithMany("Alunos")
+                        .HasForeignKey("ProjetoAlunoId");
+                });
+
+            modelBuilder.Entity("RelacaoTcc.Dominio.Models.ProjetoAluno", b =>
+                {
+                    b.HasOne("RelacaoTcc.Dominio.Models.Projeto", "Projeto")
+                        .WithMany()
+                        .HasForeignKey("ProjetoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RelacaoTcc.Dominio.Models.ProjetoProfessor", b =>
+                {
+                    b.HasOne("RelacaoTcc.Dominio.Models.Professor", "Professores")
+                        .WithMany()
+                        .HasForeignKey("ProfessorId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("RelacaoTcc.Dominio.Models.Projeto", "Projeto")
+                        .WithMany()
+                        .HasForeignKey("ProjetoId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

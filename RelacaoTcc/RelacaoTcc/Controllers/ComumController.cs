@@ -9,11 +9,11 @@ namespace RelacaoTcc.Controllers
     public abstract class ComumController<T, D> : Controller where T : Elemento where D : IModel
     {
         #region Campos
-        protected readonly string acaoImpossivel = "Não foi possível executar a ação";
-        protected readonly string naoEncontrado = "Usuário(s) não encontrado(s)";
-        protected readonly string jaCadastrado = "Usuário já cadastrado";
-
         public readonly IService<T, D> service;
+
+        public readonly string acaoImpossivel = "Não foi possível executar a ação";
+        public readonly string naoEncontrado = "Item não encontrado";
+        public readonly string jaCadastrado = "Item já cadastrado";
         #endregion
 
         #region construtor
@@ -23,8 +23,8 @@ namespace RelacaoTcc.Controllers
         }
         #endregion
 
-        #region Métodos
-        private IActionResult GerarResultado(T elemento, string mensagem = "")
+        #region métodos auxiliares
+        public IActionResult GerarResultado(T elemento, string mensagem = "")
         {
             if (elemento == null)
                 return BadRequest(acaoImpossivel);
@@ -38,7 +38,7 @@ namespace RelacaoTcc.Controllers
             return BadRequest(mensagem);
         }
 
-        private IActionResult GerarLista(List<T> lista, string mensagem = "")
+        public IActionResult GerarLista(List<T> lista, string mensagem = "")
         {
             if (lista == null)
                 return BadRequest(acaoImpossivel);
@@ -48,7 +48,9 @@ namespace RelacaoTcc.Controllers
 
             return Ok(lista);
         }
+        #endregion métodos auxiliares
 
+        #region Métodos
         [HttpPost]
         public virtual IActionResult Criar([FromBody]D model)
             => GerarResultado(service.Criar(model), jaCadastrado);
